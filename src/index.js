@@ -8,21 +8,9 @@ import { createStore } from 'redux'
 import { connect } from 'react-redux'
 import { Provider } from 'react-redux'
 import LocalizedStrings from 'react-localization'
+import localization from "./localization.json"
 
-let strings = new LocalizedStrings({
- en: {
-   helloWorld: "Hello world"
- },
- sv: {
-   helloWorld: "Hej världen!"
- },
- es: {
-   helloWorld: "Hola Mundo!"
- },
- hu: {
-   helloWorld: "Helló, Világ!"
- }
-});
+let strings = new LocalizedStrings(localization);
 
 var resolver = new ReactDI({
   strings
