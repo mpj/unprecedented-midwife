@@ -1,3 +1,4 @@
+// @flow
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
@@ -8,6 +9,9 @@ import { createStore } from 'redux'
 import { connect } from 'react-redux'
 import { Provider } from 'react-redux'
 import LocalizedStrings from 'react-localization'
+import type { State, Action } from './reducer'
+
+type DI = () => Object;
 
 let strings = new LocalizedStrings({
  en: {
@@ -28,15 +32,15 @@ var resolver = new ReactDI({
 resolver.inject(React)
 
 strings.setLanguage(navigator.language)
-let store = createStore(helloWorldReducer)
+const store = createStore(helloWorldReducer)
 
 store.dispatch({ type: 'init' })
 
-function getGreeting(stringName, di) {
+function getGreeting(stringName, di: DI) {
   return di('strings')[stringName]
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state: State, ownProps: { di: DI }) => {
   return {
     greeting: getGreeting(state.stringName, ownProps.di)
   }

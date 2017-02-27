@@ -7,6 +7,7 @@
   },
   "dependencies": {
     "enzyme": "^2.7.1",
+    "flow-bin": "^0.40.0",
     "react": "^15.4.2",
     "react-addons-test-utils": "^15.4.2",
     "react-di": "^0.3.1",
@@ -19,6 +20,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "flow": "flow; test $? -eq 0 -o $? -eq 2"
   }
 }
