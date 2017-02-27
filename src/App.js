@@ -12,4 +12,8 @@ class App extends Component {
   }
 }
 
+App.propTypes = {
+  greeting: React.PropTypes.string
+}
+
 export default App;
