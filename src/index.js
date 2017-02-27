@@ -8,60 +8,68 @@ import { createStore } from 'redux'
 import { connect } from 'react-redux'
 import { Provider } from 'react-redux'
 
+import getLanguages from './languages';
+
 import createReducer from './industrial-neighborhood/reducer.factory';
 import { createLocalization, mapLanguagesToObject } from './industrial-neighborhood/localization.factory';
 
-/*let strings = new LocalizedStrings({
- en: {
-   helloWorld: "Hello world"
- },
- sv: {
-   helloWorld: "Hej världen!"
- },
- es: {
-   helloWorld: "Hola Mundo!"
- }
-});*/
-
-const langArr = [
-  ['en', 'Hello World'],
-  ['sv', 'Hej världen!']
-];
-
-const localizedStrings = createLocalization(langArr);
-
-var resolver = new ReactDI({
-  localizedStrings
-});
-
-resolver.inject(React)
-
-localizedStrings.setLanguage(navigator.language)
-
-
-const reducer = createReducer(navigator.language, mapLanguagesToObject(langArr));
-const store = createStore(reducer);
-//let store = createStore(helloWorldReducer)
-
-//store.dispatch({ type: 'init' })
 
 function getGreeting(stringName, di) {
   return di('localizedStrings')[stringName]
 }
 
-const mapStateToProps = (state, ownProps) => {
-  return {
-    greeting: getGreeting('helloWorld', ownProps.di)
-  }
+function initResolver(localizedStrings) {
+    const resolver = new ReactDI({
+      localizedStrings
+    });
+
+    resolver.inject(React)
 }
 
-const ConnectedApp = connect(
-  mapStateToProps
-)(App)
+function initLocalization(languages) {
+    const localizedStrings = createLocalization(languages);
 
-ReactDOM.render(
-  <Provider store={store}>
-    <ConnectedApp strings={localizedStrings} />
-  </Provider>,
-  document.getElementById('root')
-);
+    localizedStrings.setLanguage(navigator.language)
+
+    return localizedStrings;
+}
+
+function initReducer(languages) {
+  return createReducer(navigator.language, mapLanguagesToObject(languages));
+}
+
+function initStore(reducer) {
+  return createStore(reducer);
+}
+
+function initRender(store, localizedStrings, ConnectedApp) {
+  ReactDOM.render(
+    <Provider store={store}>
+      <ConnectedApp strings={localizedStrings} />
+    </Provider>,
+    document.getElementById('root')
+  );
+}
+
+function init() {
+  const languages = getLanguages();
+  const localizedStrings = initLocalization(languages)
+  const reducer = initReducer(languages);
+  const store = initStore(reducer);
+
+  initResolver(localizedStrings);
+
+  const mapStateToProps = (state, ownProps) => {
+    return {
+      greeting: getGreeting('helloWorld', ownProps.di)
+    }
+  }
+
+  const ConnectedApp = connect(
+    mapStateToProps
+  )(App)
+
+  initRender(store, localizedStrings, ConnectedApp);
+}
+
+init();
