@@ -1,0 +1,14 @@
+{
+    "en": {
+        "helloWorld": "Hello world"
+    },
+    "sv": {
+        "helloWorld": "Hej världen!"
+    },
+    "es": {
+        "helloWorld": "Hola Mundo!"
+    },
+    "hu": {
+        "helloWorld": "Helló, Világ!"
+    }
+}
