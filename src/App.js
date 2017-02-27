@@ -5,13 +5,14 @@ import './App.css'
 
 class App extends Component {
   props: {
-    greeting: string
+    greeting?: string,
+    loading: boolean
   }
 
   render() {
     return (
       <div className="App">
-        {this.props.greeting}
+        {this.props.loading ? 'Loading' : this.props.greeting}
       </div>
     );
   }
