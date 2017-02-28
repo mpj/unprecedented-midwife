@@ -29,6 +29,8 @@ let strings = new LocalizedStrings({
  }
 });
 
+// HACK: Should not import directly here
+// we should somehow try to inject createSeparatorCreator, it is very bad to use global import
 const separatorCreator = createSeparatorCreator()
 
 var resolver = new ReactDI({
