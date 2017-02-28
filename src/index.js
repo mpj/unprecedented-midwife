@@ -1,13 +1,14 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
 import './index.css';
-import ReactDI from 'react-di'
-import helloWorldReducer from './reducer'
-import { createStore } from 'redux'
-import { connect } from 'react-redux'
-import { Provider } from 'react-redux'
+
+import App from './App';
 import LocalizedStrings from 'react-localization'
+import { Provider } from 'react-redux'
+import React from 'react';
+import ReactDI from 'react-di'
+import ReactDOM from 'react-dom';
+import { connect } from 'react-redux'
+import { createStore } from 'redux'
+import helloWorldReducer from './reducer'
 
 let strings = new LocalizedStrings({
  en: {
@@ -28,7 +29,10 @@ var resolver = new ReactDI({
 resolver.inject(React)
 
 strings.setLanguage(navigator.language)
-let store = createStore(helloWorldReducer)
+let store = createStore(
+  helloWorldReducer,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+)
 
 store.dispatch({ type: 'init' })
 
