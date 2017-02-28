@@ -14,15 +14,18 @@ import helloWorldReducer from './reducer'
 let strings = new LocalizedStrings({
  en: {
    hello: "Hello",
-   world: "world"
+   world: "world",
+   space: ' '
  },
  sv: {
    hello: 'Hej',
-   world: 'världen!'
+   world: 'världen!',
+   space: ' '
  },
  es: {
    hello: 'Hola',
-   world: 'Mundo!'
+   world: 'Mundo!',
+   space: ' '
  }
 });
 
@@ -47,7 +50,7 @@ function getGreeting(stringName, di) {
   const separator = di('separatorCreator').getString()
   const allStringKeys = stringName.split(separator)
   return allStringKeys.reduce((acc, val) => {
-    return acc + di('strings')[val] + ' '
+    return acc + di('strings')[val]
   }, '')
 }
 

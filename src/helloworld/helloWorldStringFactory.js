@@ -1,7 +1,16 @@
-export default function createHelloWorldStringCreator (helloStringCreator, worldStringCreator, separatorCreator) {
+export default function createHelloWorldStringCreator (
+  helloStringCreator,
+  worldStringCreator,
+  separatorCreator,
+  spaceStringCreator
+) {
   return {
     getString () {
-      return helloStringCreator.getString() + separatorCreator.getString() + worldStringCreator.getString()
+      return [
+        helloStringCreator.getString(),
+        spaceStringCreator.getString(),
+        worldStringCreator.getString()
+      ].join(separatorCreator.getString())
     }
   }
 }
