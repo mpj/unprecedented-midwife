@@ -1,7 +1,7 @@
 export default function createWorldStringCreator () {
   return {
     getString () {
-      return 'World'
+      return 'world'
     }
   }
 }

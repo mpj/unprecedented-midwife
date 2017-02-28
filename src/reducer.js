@@ -1,11 +1,13 @@
 import createHelloStringCreator from './hello/helloStringFactory'
 import createHelloWorldStringCreator from './helloworld/helloWorldStringFactory'
+import createSeparatorStringCreator from './separator/separatorFactory'
 import createWorldStringCreator from './world/worldStringFactory'
 
 function getHelloWorldString () {
   const helloStringCreator = createHelloStringCreator()
   const worldStringCreator = createWorldStringCreator()
-  const helloWorldStringCreator = createHelloWorldStringCreator(helloStringCreator, worldStringCreator)
+  const separatorCreator = createSeparatorStringCreator()
+  const helloWorldStringCreator = createHelloWorldStringCreator(helloStringCreator, worldStringCreator, separatorCreator)
   return helloWorldStringCreator.getString()
 }
 

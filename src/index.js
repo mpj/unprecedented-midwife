@@ -7,23 +7,30 @@ import React from 'react';
 import ReactDI from 'react-di'
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux'
+import createSeparatorCreator from './separator/separatorFactory'
 import { createStore } from 'redux'
 import helloWorldReducer from './reducer'
 
 let strings = new LocalizedStrings({
  en: {
-   helloWorld: "Hello world"
+   hello: "Hello",
+   world: "world"
  },
  sv: {
-   helloWorld: "Hej världen!"
+   hello: 'Hej',
+   world: 'världen!'
  },
  es: {
-   helloWorld: "Hola Mundo!"
+   hello: 'Hola',
+   world: 'Mundo!'
  }
 });
 
+const separatorCreator = createSeparatorCreator()
+
 var resolver = new ReactDI({
-  strings
+  strings,
+  separatorCreator
 });
 
 resolver.inject(React)
@@ -37,7 +44,11 @@ let store = createStore(
 store.dispatch({ type: 'init' })
 
 function getGreeting(stringName, di) {
-  return di('strings')[stringName]
+  const separator = di('separatorCreator').getString()
+  const allStringKeys = stringName.split(separator)
+  return allStringKeys.reduce((acc, val) => {
+    return acc + di('strings')[val] + ' '
+  }, '')
 }
 
 const mapStateToProps = (state, ownProps) => {
