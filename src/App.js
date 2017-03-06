@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import styled from 'styled-components'
 
 import chroma from 'chroma-js'
@@ -31,5 +31,9 @@ const App = ({ greeting, ...props }) =>
       {greeting}
     </Content>
   </Container>
+
+App.propTypes = {
+  greeting: PropTypes.string.isRequired
+}
 
 export default App
