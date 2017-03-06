@@ -4,6 +4,6 @@ import App from './App';
 import { shallow } from 'enzyme';
 
 it('renders without crashing', () => {
-  const wrapper = shallow(<App greeting={'waffles'} />)
-  expect(wrapper.find('div').text()).toBe('waffles')
-});
+  const wrapper = shallow(<App greeting='waffles' />)
+  expect(wrapper.render().find('article').text()).toBe('waffles')
+})
