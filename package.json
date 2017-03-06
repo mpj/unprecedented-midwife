@@ -3,10 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
+    "node-sass": "^4.5.0",
+    "npm-run-all": "^4.0.2",
     "react-scripts": "0.9.2"
   },
   "dependencies": {
     "enzyme": "^2.7.1",
+    "foundation-sites": "^6.3.1",
     "react": "^15.4.2",
     "react-addons-test-utils": "^15.4.2",
     "react-di": "^0.3.1",
@@ -16,8 +19,11 @@
     "redux": "^3.6.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build-css": "node-sass src/ -o src/",
+    "watch-css": "npm run build-css && node-sass src/ -o src/ --watch --recursive",
+    "start-js": "react-scripts start",
+    "start": "npm-run-all -p watch-css start-js",
+    "build": "npm run build-css && react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   }
