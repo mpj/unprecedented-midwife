@@ -18,6 +18,9 @@ let strings = new LocalizedStrings({
  },
  es: {
    helloWorld: "Hola Mundo!"
+ },
+ cz: {
+   helloWorld: "Ahoj Světe!"
  }
 });
 
